@@ -92,45 +92,45 @@ const PasswordGeneratorForm = () => {
         <p className="w-full flex items-center justify-start capitalize underline underline-offset-2">
           options to include
         </p>
-        <div className="flex sm:flex-col items-start justify-start space-x-4">
-          <label className="flex items-center justify-start space-x-2">
+        <div className="flex sm:flex-col items-start justify-start smmin:space-x-4">
+          <label className="flex items-center justify-start">
             <input
               type="checkbox"
               checked={includeLower}
               onChange={(e) => setIncludeLower(e.target.checked)}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
-            <p className="text-gray-700">Lowercase</p>
+            <p className="mx-2 text-gray-700">Lowercase</p>
           </label>
-          <label className="flex items-center justify-start space-x-2">
+          <label className="flex items-center justify-start">
             <input
               type="checkbox"
               checked={includeUpper}
               onChange={(e) => setIncludeUpper(e.target.checked)}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
-            <span className="text-gray-700">Uppercase</span>
+            <span className="mx-2 text-gray-700">Uppercase</span>
           </label>
         </div>
 
-        <div className="flex sm:flex-col items-center justify-center space-x-4">
-          <label className="flex items-center justify-start space-x-2 ">
+        <div className="flex sm:flex-col items-start justify-center sm:!mt-0 smmin:space-x-4">
+          <label className="flex items-center justify-start">
             <input
               type="checkbox"
               checked={includeNumbers}
               onChange={(e) => setIncludeNumbers(e.target.checked)}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
-            <span className="text-gray-700">Numbers</span>
+            <span className="mx-2 text-gray-700">Numbers</span>
           </label>
-          <label className="flex items-center justify-start space-x-2">
+          <label className="flex items-center justify-start">
             <input
               type="checkbox"
               checked={includeSpecial}
               onChange={(e) => setIncludeSpecial(e.target.checked)}
               className="h-4 w-4 text-blue-600 border-gray-300 rounded"
             />
-            <span className="text-gray-700">Special Characters</span>
+            <span className="mx-2 text-gray-700">Special Characters</span>
           </label>
         </div>
 
@@ -141,29 +141,34 @@ const PasswordGeneratorForm = () => {
           Generate Password
         </button>
       </form>
-      <div className="w-full flex items-start justify-start mt-6  ">
+      <div className="w-full flex sm:flex-col items-start justify-start mt-6  ">
         <textarea
           readOnly
           value={password}
-          className="w-full p-3 border border-gray-300 rounded-md"
+          className="w-full p-3 border border-gray-300 rounded-md sm:order-2 flex items-center justify-center text-center"
           placeholder="Generated password will appear here"
         />
+        <div className="flex items-start justify-between">
+        {copied ? (<p className="mx-2 order-3 smmin:hidden">Copied</p>) : ""}
         <button
           type="button"
           onClick={copyToClipboard}
           disabled={!password}
-          className={`p-2 rounded-md ml-2 text-white ${
+          className={`p-2 rounded-md smmin:ml-2 sm:mb-2 sm:order-1 text-white ${
             password
               ? "bg-blue-600 cursor-pointer hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
               : "bg-gray-400 cursor-default"
           }`}
         >
           {copied ? (
-            <LuCheck className="text-white" />
+           
+            <LuCheck className="text-white" /> 
           ) : (
             <LuCopy className="text-white" />
           )}
         </button>
+        
+          </div>
       </div>
     </div>
   );
