@@ -92,7 +92,7 @@ const PasswordGeneratorForm = () => {
         <p className="w-full flex items-center justify-start capitalize underline underline-offset-2">
           options to include
         </p>
-        <div className="flex items-start justify-start space-x-4">
+        <div className="flex sm:flex-col items-start justify-start space-x-4">
           <label className="flex items-center justify-start space-x-2">
             <input
               type="checkbox"
@@ -113,7 +113,7 @@ const PasswordGeneratorForm = () => {
           </label>
         </div>
 
-        <div className="flex items-center justify-center space-x-4">
+        <div className="flex sm:flex-col items-center justify-center space-x-4">
           <label className="flex items-center justify-start space-x-2 ">
             <input
               type="checkbox"
