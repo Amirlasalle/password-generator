@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { LuCheck, LuCopy, LuCopyCheck } from "react-icons/lu";
+import { LuCheck, LuCopy } from "react-icons/lu";
 
 const PasswordGeneratorForm = () => {
   // const [length, setLength] = useState<number | "">("");
