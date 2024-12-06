@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { LuCheck, LuCopy } from "react-icons/lu";
 
-interface SavedPassword {
-  password: string;
-}
+// interface SavedPassword {
+//   password: string;
+// }
 
 interface PasswordEntry {
   password: string;
@@ -23,7 +23,7 @@ const PasswordGeneratorForm = () => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   // const [savedPassword, setSavedPassword] = useState<SavedPassword[]>([]);
   const [showPasswords, setShowPasswords] = useState(false);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  // const [filtersOpen, setFiltersOpen] = useState(false);
 
   const handlePasswordCopy = (password: string, index: number) => {
     navigator.clipboard.writeText(password).then(() => {
