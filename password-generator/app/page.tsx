@@ -8,6 +8,10 @@ interface SavedPassword {
   password: string;
 }
 
+interface PasswordEntry {
+  password: string;
+}
+
 const PasswordGeneratorForm = () => {
   const [includeLower, setIncludeLower] = useState(true);
   const [includeUpper, setIncludeUpper] = useState(true);
@@ -17,8 +21,9 @@ const PasswordGeneratorForm = () => {
   const [length, setLength] = useState(8);
   const [copied, setCopied] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [savedPassword, setSavedPassword] = useState<SavedPassword[]>([]);
+  // const [savedPassword, setSavedPassword] = useState<SavedPassword[]>([]);
   const [showPasswords, setShowPasswords] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const handlePasswordCopy = (password: string, index: number) => {
     navigator.clipboard.writeText(password).then(() => {
@@ -85,6 +90,53 @@ const PasswordGeneratorForm = () => {
     passwords.push(newPasswordEntry);
     localStorage.setItem("password-generator", JSON.stringify(passwords));
     setSavedPassword(passwords); // Update state to reflect saved passwords
+  };
+
+  const [savedPassword, setSavedPassword] = useState<PasswordEntry[]>([
+    { password: "abc123" },
+    { password: "Zxcvbnm" },
+    { password: "12345678" },
+    { password: "!@#$%^&*()_+|}{][]" },
+  ]);
+
+  const [selectedFilter, setSelectedFilter] = useState("newest"); // default to 'newest'
+
+  // Sorting logic based on the selected filter
+  const sortPasswords = (passwords: PasswordEntry[]): PasswordEntry[] => {
+    switch (selectedFilter) {
+      case "az":
+        return [...passwords].sort((a, b) =>
+          a.password.localeCompare(b.password)
+        ); // A-Z
+      case "za":
+        return [...passwords].sort((a, b) =>
+          b.password.localeCompare(a.password)
+        ); // Z-A
+      case "newest":
+        return [...passwords].reverse(); // Newest to oldest (reverse the array)
+      case "oldest":
+        return [...passwords]; // Oldest to newest (default order)
+      case "numbers-letters":
+        return [...passwords].filter(
+          (p) => /\d/.test(p.password) && /[a-zA-Z]/.test(p.password)
+        ); // Numbers and letters
+      case "numbers-only":
+        return [...passwords].filter((p) =>
+          /^[0-9]+[^a-zA-Z!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`]+$/.test(
+            p.password
+          )
+        );
+      case "letters-only":
+        return [...passwords].filter((p) =>
+          /^[a-zA-Z]+[^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~0-9]+$/.test(
+            p.password
+          )
+        );
+      case "symbols-only":
+        return [...passwords].filter((p) => /^[^a-zA-Z0-9]+$/.test(p.password));
+      default:
+        return passwords;
+    }
   };
 
   return (
@@ -181,7 +233,7 @@ const PasswordGeneratorForm = () => {
           <textarea
             readOnly
             value={password}
-            className="w-full h-32 p-3 border border-gray-300 rounded-md sm:order-2 flex items-center justify-center text-center"
+            className="w-full min-h-32 h-32 p-3 border border-gray-300 rounded-md sm:order-2 flex items-center justify-center text-center"
             placeholder="Generated password will appear here"
           />
           <div className="flex items-start justify-between">
@@ -228,6 +280,7 @@ const PasswordGeneratorForm = () => {
                 Saved passwords
               </h3>
             </div>
+
             <div
               onClick={() => {
                 localStorage.removeItem("password-generator"); // Clear local storage
@@ -235,12 +288,32 @@ const PasswordGeneratorForm = () => {
               }}
               className="flex items-center justify-between text-red-500 rounded-md cursor-pointer"
             >
-            <p className="w-full text-black hover:text-red-500 hover:underline underline-offset-2" >Clear History</p> <BiTrash />
+              <p className="w-full text-black hover:text-red-500 hover:underline underline-offset-2">
+                Clear History
+              </p>{" "}
+              <BiTrash />
             </div>
           </div>
+          <div className="w-full flex items-center justify-center py-3">
+            <select
+              className="flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 cursor-pointer"
+              value={selectedFilter}
+              onChange={(e) => setSelectedFilter(e.target.value)}
+            >
+              <option value="newest">Newest - Oldest</option>
+              <option value="oldest">Oldest - Newest</option>
+              <option value="az">A-Z</option>
+              <option value="za">Z-A</option>
+              <option value="numbers-letters">Numbers & Letters</option>
+              <option value="letters-only">Letters Only</option>
+              <option value="numbers-only">Numbers Only</option>
+              <option value="symbols-only">Symbols Only</option>
+            </select>
+          </div>
+
           <div className="w-full h-full flex flex-col items-center justify-start pb-5 bg-white text-black overflow-scroll">
             <ul className="w-full flex flex-col items-center justify-start px-5 bg-white text-black">
-              {savedPassword.map((passwordEntry, index) => (
+              {sortPasswords(savedPassword).map((passwordEntry, index) => (
                 <li
                   onClick={() =>
                     handlePasswordCopy(passwordEntry.password, index)
