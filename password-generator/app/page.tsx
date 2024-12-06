@@ -274,7 +274,7 @@ const PasswordGeneratorForm = () => {
       </div>
       {showPasswords && (
         <div className="w-full max-w-2xl h-72 flex flex-col items-center justify-center my-5 bg-white text-black overflow-hidden rounded-xl shadow-lg ">
-          <div className="w-full flex sm:flex-col items-center justify-between px-5">
+          <div className="w-full flex sm:flex-col items-center justify-between sm:items-start sm:justify-center px-5">
             <div className="flex items-center justify-center">
               <h3 className="capitalize text-xl font-semibold underline underline-offset-2 py-3 text-center">
                 Saved passwords
