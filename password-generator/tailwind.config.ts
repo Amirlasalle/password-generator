@@ -35,6 +35,7 @@ export default {
 
       xs: { max: "479px" },
       // => @media (max-width: 479px) { ... }
+      xxs: { max: "430px" },
 
       "2xlmin": { min: "1535px" },
       // => @media (min-width: 1535px) { ... }
@@ -55,6 +56,8 @@ export default {
       // => @media (min-width: 639px) { ... }
 
       xsmin: { min: "479px" },
+      xxsmin: { min: "300px" },
+      // => @media (min-width: 430px) { ... }
     },
   },
   plugins: [],

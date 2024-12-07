@@ -140,16 +140,16 @@ const PasswordGeneratorForm = () => {
   };
 
   return (
-    <div className="w-screen min-h-dvh px-10 flex flex-col items-center justify-start">
-      <div className="max-w-2xl mx-auto p-6 bg-white w-full shadow-lg rounded-xl">
+    <div className="w-screen min-h-dvh px-10 xxs:px-0 flex flex-col items-center justify-start">
+      <div className="max-w-2xl mx-auto p-6 bg-white w-full shadow-lg rounded-xl xxs:rounded-none xxs:mx-0">
         <div className="w-full inline-flex justify-center items-center mb-6">
-          <h1 className="text-2xl font-bold text-center">Password Generator</h1>
+          <h1 className="text-2xl xxs:text-xl font-bold text-center">Password Generator</h1>
           <Image
             src="/images/reset-password.webp"
             alt="lock"
             width={50}
             height={50}
-            className="mx-2"
+            className="mx-2 xxs:size-8"
           />
         </div>
         <form
@@ -159,17 +159,17 @@ const PasswordGeneratorForm = () => {
           }}
           className="space-y-4 flex flex-col items-start justify-start"
         >
-          <div>
+          <div className="flex flex-col w-full items-start justify-center">
             <label
               htmlFor="length"
-              className="block text-sm font-medium text-gray-700"
+              className="text-sm xxs:text-xs font-medium text-gray-700 flex w-full items-center xs:justify-start xsmin:justify-center"
             >
               Password Length (8-128)
             </label>
             <input
               type="number"
               id="length"
-              className="mt-1 w-fit rounded-xl border border-gray-800 px-2 py-1 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="flex items-center justify-start mt-1 w-fit xxs:w-full rounded-xl border border-gray-800 px-2 py-1 xxs:px-1 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm xxs:text-xs"
               // value={length}
               // onChange={(e) => setLength(Number(e.target.value))}
               value={length}
@@ -186,22 +186,22 @@ const PasswordGeneratorForm = () => {
                 type="checkbox"
                 checked={includeLower}
                 onChange={(e) => setIncludeLower(e.target.checked)}
-                className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                className="h-4 w-4 xxs:text-xs blue-600 border-gray-300 rounded"
               />
-              <p className="mx-2 text-gray-700">Lowercase</p>
+              <p className="mx-2 xxs:mx-1 xxs:text-xs text-gray-700">Lowercase</p>
             </label>
-            <label className="flex items-center justify-start">
+            <label className="flex items-center justify-start xxs:mt-1">
               <input
                 type="checkbox"
                 checked={includeUpper}
                 onChange={(e) => setIncludeUpper(e.target.checked)}
-                className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+                className="h-4 w-4 text-blue-600 border-gray-300 xxs:text-xs rounded"
               />
-              <span className="mx-2 text-gray-700">Uppercase</span>
+              <span className="mx-2 xxs:mx-1 xxs:text-xs text-gray-700">Uppercase</span>
             </label>
           </div>
 
-          <div className="flex sm:flex-col items-start justify-center sm:!mt-0 smmin:space-x-4">
+          <div className="flex sm:flex-col items-start justify-center sm:!mt-1 smmin:space-x-4 xxs:text-xs">
             <label className="flex items-center justify-start">
               <input
                 type="checkbox"
@@ -209,7 +209,7 @@ const PasswordGeneratorForm = () => {
                 onChange={(e) => setIncludeNumbers(e.target.checked)}
                 className="h-4 w-4 text-blue-600 border-gray-300 rounded"
               />
-              <span className="mx-2 text-gray-700">Numbers</span>
+              <span className="mx-2 xxs:mx-1 text-gray-700">Numbers</span>
             </label>
             <label className="flex items-center justify-start">
               <input
@@ -218,13 +218,15 @@ const PasswordGeneratorForm = () => {
                 onChange={(e) => setIncludeSpecial(e.target.checked)}
                 className="h-4 w-4 text-blue-600 border-gray-300 rounded"
               />
-              <span className="mx-2 text-gray-700">Special Characters</span>
+              <span className="mx-2 xxs:mx-1 text-gray-700">
+                Special Characters
+              </span>
             </label>
           </div>
 
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 xxs:px-1 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 xxs:text-xs"
           >
             Generate Password
           </button>
@@ -233,16 +235,20 @@ const PasswordGeneratorForm = () => {
           <textarea
             readOnly
             value={password}
-            className="w-full min-h-32 h-32 p-3 border border-gray-300 rounded-md sm:order-2 flex items-center justify-center text-center"
-            placeholder="Generated password will appear here"
+            className="w-full min-h-32 h-32 p-3 border border-gray-300 rounded-md sm:order-2 flex items-center justify-center text-center xxs:text-xs"
+            placeholder="Generated password will appear here "
           />
-          <div className="flex items-start justify-between">
-            {copied ? <p className="mx-2 order-3 smmin:hidden">Copied</p> : ""}
+          <div className="flex items-start justify-between xxs:text-xs">
+            {copied ? (
+              <p className="mx-2 xxs:mx-1 order-3 smmin:hidden">Copied</p>
+            ) : (
+              ""
+            )}
             <button
               type="button"
               onClick={copyToClipboard}
               disabled={!password}
-              className={`p-2 rounded-md smmin:ml-2 sm:mb-2 sm:order-1 text-white ${
+              className={`p-2 rounded-md smmin:ml-2 xxs:text-xs sm:mb-2 sm:order-1 text-white ${
                 password
                   ? "bg-blue-600 cursor-pointer hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
                   : "bg-gray-400 cursor-default"
@@ -256,13 +262,13 @@ const PasswordGeneratorForm = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center pt-4">
+        <div className="flex flex-col items-center justify-center xxs:text-xs pt-4">
           <button
             type="button"
             onClick={() => {
               setShowPasswords((prev) => !prev);
             }}
-            className={`p-2 rounded-md smmin:ml-2 sm:mb-2 sm:order-1 text-white bg-blue-600 cursor-pointer capitalize hover:bg-blue-700 focus:ring-2 focus:ring-blue-500`}
+            className={`p-2 rounded-md smmin:ml-2 sm:mb-2 sm:order-1 text-white bg-blue-600 cursor-pointer capitalize hover:bg-blue-700 xxs:text-xs focus:ring-2 focus:ring-blue-500`}
           >
             {showPasswords ? (
               <p>Close password history</p>
@@ -273,10 +279,10 @@ const PasswordGeneratorForm = () => {
         </div>
       </div>
       {showPasswords && (
-        <div className="w-full max-w-2xl h-72 flex flex-col items-center justify-center my-5 bg-white text-black overflow-hidden rounded-xl shadow-lg ">
-          <div className="w-full flex sm:flex-col items-center justify-between sm:items-start sm:justify-center px-5">
+        <div className="w-full max-w-2xl h-72 flex flex-col xxs:text-xs items-center justify-center my-5 xxs:mb-0 bg-white text-black overflow-hidden rounded-xl xxs:rounded-none shadow-lg ">
+          <div className="w-full flex sm:flex-col items-center justify-between sm:items-start sm:justify-center px-5 xxs:px-2">
             <div className="flex items-center justify-center">
-              <h3 className="capitalize text-xl font-semibold underline underline-offset-2 py-3 text-center">
+              <h3 className="capitalize text-xl font-semibold underline underline-offset-2 py-3 text-center xxs:text-sm">
                 Saved passwords
               </h3>
             </div>
@@ -297,7 +303,7 @@ const PasswordGeneratorForm = () => {
 
           <div className="w-full flex items-center justify-center py-3">
             <select
-              className="flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 cursor-pointer"
+              className="flex items-center justify-center px-4 xxs:px-1 py-2 rounded-md border border-gray-300 cursor-pointer"
               value={selectedFilter}
               onChange={(e) => setSelectedFilter(e.target.value)}
             >
@@ -312,15 +318,15 @@ const PasswordGeneratorForm = () => {
             </select>
           </div>
 
-          <div className="w-full h-full flex flex-col items-center justify-start pb-5 bg-white text-black overflow-scroll">
-            <ul className="w-full flex flex-col items-center justify-start px-5 bg-white text-black">
+          <div className="w-full h-full flex flex-col items-center justify-start pb-5 bg-white text-black overflow-scrol l">
+            <ul className="w-full flex flex-col items-center justify-start px-5 xxs:px-1 bg-white text-black">
               {sortPasswords(savedPassword).map((passwordEntry, index) => (
                 <li
                   onClick={() =>
                     handlePasswordCopy(passwordEntry.password, index)
                   }
                   key={index}
-                  className="w-full h-full mb-2 cursor-pointer flex items-center justify-between hover:bg-slate-200 px-5 py-2 rounded-xl  hover:text-slate-500"
+                  className="w-full h-full mb-2 cursor-pointer flex items-center justify-between hover:bg-slate-200 px-5 xxs:px-2 py-2 rounded-xl  hover:text-slate-500"
                 >
                   <p className="w-1/2 break-words text-left">
                     {passwordEntry.password}
@@ -330,7 +336,7 @@ const PasswordGeneratorForm = () => {
                     onClick={() =>
                       handlePasswordCopy(passwordEntry.password, index)
                     }
-                    className={`p-2 ml-2 rounded-md smmin:ml-2 sm:mb-2 sm:order-1 text-white bg-blue-600 cursor-pointer capitalize hover:bg-blue-700 focus:ring-2 focus:ring-blue-500`}
+                    className={`p-2 ml-2 rounded-md smmin:ml-2 sm:order-1 text-white bg-blue-600 cursor-pointer capitalize hover:bg-blue-700 focus:ring-2 focus:ring-blue-500`}
                   >
                     {copiedIndex === index ? (
                       <LuCheck className="text-white" />
